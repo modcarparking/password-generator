@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Password Generator</title>
+   <style type="text/css">
+      body {
+       font-family: 'Arial', sans-serif;
+       background-color: #f4f4f4;
+       text-align: center;
+       margin: 50px;
+    }
+    h1 {
+       color: #333;
+    }
+    label {
+       display: inline-block;
+       margin: 10px 5px;
+    }
+    input, button {
+       margin: 5px;
+       padding: 8px;
+       font-size: 16px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       box-sizing: border-box;
+    }
+    button {
+       background-color: #4caf50;
+       color: white;
+       cursor: pointer;
+       transition: background-color 0.3s;
+    }
+    button:hover {
+       background-color: #45a049;
+    }
+    input {
+       width: 90%;
+    }
+    #length{
+       width: 100px;
+    }
+    #password {
+       width: 60%;
+    }
+    #copyButton {
+       background-color: #008CBA;
+       color: white;
+       cursor: pointer;
+       transition: background-color 0.3s;
+    }
+    #copyButton:hover {
+       background-color: #005684;
+    }
+    .options div{
+       display: flex;
+    }
+    .options div input{
+       width: 20px;
+    }
+    #footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+   }
+
+   #credit {
+      margin-top: 10px;
+      font-size: 14px;
+   }
+
+   #credit a {
+      color: white;
+      text-decoration: underline;
+   }
+</style>
+</head>
+<body>
+   <h1>Password Generator Codepen</h1>
+   <label for="length">Password Length:</label>
+   <input type="number" id="length" min="6" max="20" value="12">
+   <br>
+   <div style="display: flex;justify-content: center;" class="options">
+      <div>
+         <input type="checkbox" id="uppercase" checked>
+         <label for="uppercase">Include Uppercase</label>
+      </div>
+      <div>
+         <input type="checkbox" id="lowercase" checked>
+         <label for="lowercase">Include Lowercase</label>
+      </div>
+      <div>
+         <input type="checkbox" id="lowercase" checked>
+         <label for="lowercase">Include Lowercase</label>
+      </div>
+      <div>
+         <input type="checkbox" id="numbers" checked>
+         <label for="numbers">Include Numbers</label>
+      </div>
+      <div>
+         <input type="checkbox" id="symbols" checked>
+         <label for="symbols">Include Symbols</label>
+      </div>
+   </div>
+   <br>
+   <button onclick="generatePassword()">Generate Password</button>
+   <br>
+   <input id="password" type="text" readonly>
+   <button id="copyButton" onclick="copyToClipboard()">Copy</button>
+   
+   <div id="footer">
+    <div id="credit">
+      <p>Script developed by <a href="https://modcarparking.com/" target="_blank">modcarparking.com</a></p>
+   </div>
+</div>
+<script type="text/javascript">
+  function generatePassword() {
+   const length = document.getElementById('length').value;
+   const uppercase = document.getElementById('uppercase').checked;
+   const lowercase = document.getElementById('lowercase').checked;
+   const numbers = document.getElementById('numbers').checked;
+   const symbols = document.getElementById('symbols').checked;
+
+   const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+   const numberChars = '0123456789';
+   const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+   let allChars = '';
+   let password = '';
+
+   if (uppercase) allChars += uppercaseChars;
+   if (lowercase) allChars += lowercaseChars;
+   if (numbers) allChars += numberChars;
+   if (symbols) allChars += symbolChars;
+
+   for (let i = 0; i < length; i++) {
+     const randomIndex = Math.floor(Math.random() * allChars.length);
+     password += allChars.charAt(randomIndex);
+  }
+
+  document.getElementById('password').value = password;
+}
+
+function copyToClipboard() {
+   const passwordField = document.getElementById('password');
+   passwordField.select();
+   document.execCommand('copy');
+   alert('Password copied to clipboard!');
+}
+</script>
+</body>
+</html>
